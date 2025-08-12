@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Exchange Rates Bot',
+  title: 'Exchange Rates Bot ',
   description: 'Get live exchange rates from multiple banks in Uzbekistan',
 };
 
