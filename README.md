@@ -130,15 +130,19 @@ Open [http://localhost:3000](http://localhost:3000) to view the web application.
 This template provides a solid foundation that you can customize:
 
 ### Bot Commands
+
 Edit `app/api/telegram-webhook/route.ts` to add your custom bot commands and responses.
 
 ### Web Interface
+
 Modify `app/page.tsx` and components in `components/` to create your custom web interface.
 
 ### API Endpoints
+
 Add new API routes in `app/api/` for your specific functionality.
 
 ### Styling
+
 Customize the look and feel by editing `app/globals.css` and Tailwind classes.
 
 ## Development
@@ -205,14 +209,14 @@ The app can be deployed to any platform that supports Next.js:
 
 ## Environment Variables
 
-| Variable                            | Description                               | Required |
-| ----------------------------------- | ----------------------------------------- | -------- |
-| `TELEGRAM_BOT_TOKEN`                | Your Telegram bot token                  | Yes      |
-| `NEXTAUTH_URL`                      | Your app URL (for authentication)        | No       |
-| `NEXTAUTH_SECRET`                   | Secret for authentication                 | No       |
-| `NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID` | Google Analytics 4 Measurement ID        | No       |
-| `GOOGLE_MEASUREMENT_ID`             | GA4 ID for server-side tracking          | No       |
-| `GOOGLE_ANALYTICS_API_SECRET`       | GA4 API secret for server-side tracking  | No       |
+| Variable                            | Description                             | Required |
+| ----------------------------------- | --------------------------------------- | -------- |
+| `TELEGRAM_BOT_TOKEN`                | Your Telegram bot token                 | Yes      |
+| `NEXTAUTH_URL`                      | Your app URL (for authentication)       | No       |
+| `NEXTAUTH_SECRET`                   | Secret for authentication               | No       |
+| `NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID` | Google Analytics 4 Measurement ID       | No       |
+| `GOOGLE_MEASUREMENT_ID`             | GA4 ID for server-side tracking         | No       |
+| `GOOGLE_ANALYTICS_API_SECRET`       | GA4 API secret for server-side tracking | No       |
 
 ## Contributing
 

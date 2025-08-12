@@ -5,9 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Textract Bot - Extract Text from Images & PDFs',
-  description:
-    'Extract handwritten text from images and PDFs using AWS Textract',
+  title: 'Exchange Rates Bot',
+  description: 'Get live exchange rates from multiple banks in Uzbekistan',
 };
 
 export const viewport = {
@@ -25,7 +24,7 @@ export default function RootLayout({
   const measurementId = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID;
 
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         {/* Google Analytics 4 - Only load if Measurement ID is set */}
         {measurementId && (
@@ -47,8 +46,8 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className={inter.className}>
-        <div className="min-h-screen bg-gray-50">{children}</div>
+      <body className={`${inter.className} dark`}>
+        <div className="min-h-screen bg-background">{children}</div>
         <script
           src="https://telegram.org/js/telegram-web-app.js"
           async

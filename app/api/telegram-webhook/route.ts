@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import TelegramBot from 'node-telegram-bot-api';
 import { trackServerEvent } from '@/lib/analytics';
+import {
+  fetchAllRates,
+  formatRatesTable,
+  getBestRates,
+} from '@/lib/ratesService';
 
 // Initialize Telegram bot
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN!, {
@@ -43,13 +48,14 @@ async function handleMessage(message: any) {
 
         await bot.sendMessage(
           chatId,
-          `👋 Hello ${firstName}! Welcome to your Telegram Bot Template!\n\n` +
-            'This is a template bot that you can customize for your needs.\n\n' +
+          `👋 Hello ${firstName}! Welcome to Exchange Rates Bot!\n\n` +
+            'Get live exchange rates from multiple banks in Uzbekistan.\n\n' +
             'Available commands:\n' +
             '/start - Start the bot\n' +
             '/help - Show help message\n' +
             '/hello - Get a greeting\n' +
-            '/info - Get bot information'
+            '/info - Get bot information\n' +
+            '/rates - Get exchange rates from all banks'
         );
       } else if (text === '/help') {
         // Track help command
@@ -62,15 +68,17 @@ async function handleMessage(message: any) {
         await bot.sendMessage(
           chatId,
           '📖 Help:\n\n' +
-            'This is a template bot. You can:\n' +
-            '• Send commands to interact with the bot\n' +
-            '• Customize the bot behavior in the code\n' +
-            '• Add your own features and functionality\n\n' +
+            'Exchange Rates Bot:\n' +
+            '• Get live exchange rates from multiple banks\n' +
+            '• View USD, EUR, and RUB rates\n' +
+            '• Compare rates between Hamkorbank and Universal Bank\n\n' +
             'Commands:\n' +
             '/start - Start the bot\n' +
             '/help - Show this help message\n' +
             '/hello - Get a greeting\n' +
-            '/info - Get bot information'
+            '/info - Get bot information\n' +
+            '/rates - Get exchange rates from all banks\n' +
+            '/best - Get best rates summary'
         );
       } else if (text === '/hello') {
         // Track hello command
@@ -96,12 +104,87 @@ async function handleMessage(message: any) {
         await bot.sendMessage(
           chatId,
           '🤖 Bot Information:\n\n' +
-            '• Name: Telegram Bot Template\n' +
+            '• Name: Exchange Rates Bot\n' +
             '• Version: 1.0.0\n' +
             '• Platform: Telegram\n' +
-            '• Features: Web App + Mini App + Bot\n\n' +
-            '🔧 Customize this bot for your specific needs!'
+            '• Features: Web App + Mini App + Bot\n' +
+            '• Exchange Rates: Live rates from multiple banks\n\n' +
+            '🏦 Get the latest USD, EUR, and RUB rates!'
         );
+      } else if (text === '/rates') {
+        // Track rates command
+        await trackServerEvent('user_engagement', {
+          source: 'bot',
+          action: 'rates_command',
+          user_id: chatId,
+        });
+
+        // Send loading message
+        const loadingMsg = await bot.sendMessage(
+          chatId,
+          '🔄 Fetching exchange rates from all banks...'
+        );
+
+        try {
+          // Fetch all rates
+          const rates = await fetchAllRates();
+
+          // Format the response
+          const ratesTable = formatRatesTable(rates);
+
+          // Update the message with results
+          await bot.editMessageText(ratesTable, {
+            chat_id: chatId,
+            message_id: loadingMsg.message_id,
+            parse_mode: 'Markdown',
+          });
+        } catch (error) {
+          console.error('Error fetching rates:', error);
+          await bot.editMessageText(
+            "❌ Sorry, I couldn't fetch the exchange rates at the moment. Please try again later.",
+            {
+              chat_id: chatId,
+              message_id: loadingMsg.message_id,
+            }
+          );
+        }
+      } else if (text === '/best') {
+        // Track best rates command
+        await trackServerEvent('user_engagement', {
+          source: 'bot',
+          action: 'best_rates_command',
+          user_id: chatId,
+        });
+
+        // Send loading message
+        const loadingMsg = await bot.sendMessage(
+          chatId,
+          '🏆 Finding the best exchange rates...'
+        );
+
+        try {
+          // Fetch all rates
+          const rates = await fetchAllRates();
+
+          // Get best rates summary
+          const bestRates = getBestRates(rates);
+
+          // Update the message with results
+          await bot.editMessageText(bestRates, {
+            chat_id: chatId,
+            message_id: loadingMsg.message_id,
+            parse_mode: 'Markdown',
+          });
+        } catch (error) {
+          console.error('Error fetching best rates:', error);
+          await bot.editMessageText(
+            "❌ Sorry, I couldn't fetch the best rates at the moment. Please try again later.",
+            {
+              chat_id: chatId,
+              message_id: loadingMsg.message_id,
+            }
+          );
+        }
       } else {
         // Track text message (not a command)
         await trackServerEvent('user_engagement', {

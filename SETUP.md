@@ -70,6 +70,7 @@ npm run setup:mini-app
 ```
 
 Or manually with @BotFather:
+
 1. Send `/mybots` to @BotFather
 2. Select your bot → "Bot Settings" → "Configure Mini App"
 3. Set URL to your deployed domain
@@ -170,12 +171,12 @@ Edit `app/page.tsx` and components in `components/` to match your needs.
 
 ### Environment Variables
 
-| Variable                            | Description                      | Required |
-| ----------------------------------- | -------------------------------- | -------- |
-| `TELEGRAM_BOT_TOKEN`                | Your Telegram bot token          | Yes      |
-| `NEXTAUTH_URL`                      | Your app URL                     | No       |
-| `NEXTAUTH_SECRET`                   | Secret for authentication        | No       |
-| `NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID` | Google Analytics 4 Measurement ID| No       |
+| Variable                            | Description                       | Required |
+| ----------------------------------- | --------------------------------- | -------- |
+| `TELEGRAM_BOT_TOKEN`                | Your Telegram bot token           | Yes      |
+| `NEXTAUTH_URL`                      | Your app URL                      | No       |
+| `NEXTAUTH_SECRET`                   | Secret for authentication         | No       |
+| `NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID` | Google Analytics 4 Measurement ID | No       |
 
 ## Deployment
 
