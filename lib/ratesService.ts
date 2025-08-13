@@ -152,8 +152,8 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
               rates.push({
                 bank: 'Universal Bank',
                 currency: currency.toUpperCase(),
-                buy: buyRate, // Already in "per 100" format
-                sell: sellRate, // Already in "per 100" format
+                buy: buyRate * 100, // Convert to "per 1" format (12,500 -> 1,250,000)
+                sell: sellRate * 100, // Convert to "per 1" format (12,570 -> 1,257,000)
                 date: latestRate.date,
               });
               console.log(
@@ -190,22 +190,22 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
                {
                  bank: 'Universal Bank',
                  currency: 'USD',
-                 buy: 12450, // Already in "per 100" format
-                 sell: 12650, // Already in "per 100" format
+                 buy: 1245000, // Convert to "per 1" format (12,450 * 100)
+                 sell: 1265000, // Convert to "per 1" format (12,650 * 100)
                  date: today,
                },
                {
                  bank: 'Universal Bank',
                  currency: 'EUR',
-                 buy: 13000, // Already in "per 100" format
-                 sell: 15200, // Already in "per 100" format
+                 buy: 1300000, // Convert to "per 1" format (13,000 * 100)
+                 sell: 1520000, // Convert to "per 1" format (15,200 * 100)
                  date: today,
                },
                {
                  bank: 'Universal Bank',
                  currency: 'RUB',
-                 buy: 150, // Already in "per 100" format
-                 sell: 161, // Already in "per 100" format
+                 buy: 15000, // Convert to "per 1" format (150 * 100)
+                 sell: 16100, // Convert to "per 1" format (161 * 100)
                  date: today,
                }
              );
@@ -280,8 +280,8 @@ async function fetchTengeBankRates(): Promise<ExchangeRate[]> {
                                rates.push({
                      bank: 'Tenge Bank',
                      currency: currency,
-                     buy: currencyData.buy, // Already in "per 100" format
-                     sell: currencyData.sell, // Already in "per 100" format
+                     buy: currencyData.buy * 100, // Convert to "per 1" format (12,450 -> 1,245,000)
+                     sell: currencyData.sell * 100, // Convert to "per 1" format (12,570 -> 1,257,000)
                      date: latestRates.date,
                    });
             console.log(
@@ -307,22 +307,22 @@ async function fetchTengeBankRates(): Promise<ExchangeRate[]> {
                {
                  bank: 'Tenge Bank',
                  currency: 'USD',
-                 buy: 12480, // Already in "per 100" format
-                 sell: 12620, // Already in "per 100" format
+                 buy: 1248000, // Convert to "per 1" format (12,480 * 100)
+                 sell: 1262000, // Convert to "per 1" format (12,620 * 100)
                  date: today,
                },
                {
                  bank: 'Tenge Bank',
                  currency: 'EUR',
-                 buy: 14100, // Already in "per 100" format
-                 sell: 14700, // Already in "per 100" format
+                 buy: 1410000, // Convert to "per 1" format (14,100 * 100)
+                 sell: 1470000, // Convert to "per 1" format (14,700 * 100)
                  date: today,
                },
                {
                  bank: 'Tenge Bank',
                  currency: 'RUB',
-                 buy: 140, // Already in "per 100" format
-                 sell: 166, // Already in "per 100" format
+                 buy: 14000, // Convert to "per 1" format (140 * 100)
+                 sell: 16600, // Convert to "per 1" format (166 * 100)
                  date: today,
                }
              );
