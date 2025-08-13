@@ -152,8 +152,8 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
               rates.push({
                 bank: 'Universal Bank',
                 currency: currency.toUpperCase(),
-                buy: buyRate * 100, // Convert to "per 100" format to match Hamkorbank
-                sell: sellRate * 100, // Convert to "per 100" format to match Hamkorbank
+                buy: buyRate, // Already in "per 100" format
+                sell: sellRate, // Already in "per 100" format
                 date: latestRate.date,
               });
               console.log(
@@ -186,29 +186,29 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
       console.log('Adding manual fallback values for Universal Bank');
       const today = new Date().toISOString().split('T')[0];
 
-      rates.push(
-        {
-          bank: 'Universal Bank',
-          currency: 'USD',
-          buy: 1245000, // 12450 * 100
-          sell: 1265000, // 12650 * 100
-          date: today,
-        },
-        {
-          bank: 'Universal Bank',
-          currency: 'EUR',
-          buy: 1300000, // 13000 * 100
-          sell: 1520000, // 15200 * 100
-          date: today,
-        },
-        {
-          bank: 'Universal Bank',
-          currency: 'RUB',
-          buy: 15000, // 150 * 100
-          sell: 16100, // 161 * 100
-          date: today,
-        }
-      );
+                   rates.push(
+               {
+                 bank: 'Universal Bank',
+                 currency: 'USD',
+                 buy: 12450, // Already in "per 100" format
+                 sell: 12650, // Already in "per 100" format
+                 date: today,
+               },
+               {
+                 bank: 'Universal Bank',
+                 currency: 'EUR',
+                 buy: 13000, // Already in "per 100" format
+                 sell: 15200, // Already in "per 100" format
+                 date: today,
+               },
+               {
+                 bank: 'Universal Bank',
+                 currency: 'RUB',
+                 buy: 150, // Already in "per 100" format
+                 sell: 161, // Already in "per 100" format
+                 date: today,
+               }
+             );
     }
 
     console.log(`Universal Bank rates fetched: ${rates.length}`);
@@ -277,13 +277,13 @@ async function fetchTengeBankRates(): Promise<ExchangeRate[]> {
           const currencyData =
             latestRates.currency[currency as keyof typeof latestRates.currency];
           if (currencyData && currencyData.buy > 0 && currencyData.sell > 0) {
-            rates.push({
-              bank: 'Tenge Bank',
-              currency: currency,
-              buy: currencyData.buy * 100, // Convert to "per 100" format to match Hamkorbank
-              sell: currencyData.sell * 100, // Convert to "per 100" format to match Hamkorbank
-              date: latestRates.date,
-            });
+                               rates.push({
+                     bank: 'Tenge Bank',
+                     currency: currency,
+                     buy: currencyData.buy, // Already in "per 100" format
+                     sell: currencyData.sell, // Already in "per 100" format
+                     date: latestRates.date,
+                   });
             console.log(
               `Added Tenge Bank ${currency} rate: Buy ${currencyData.buy}, Sell ${currencyData.sell}`
             );
@@ -303,29 +303,29 @@ async function fetchTengeBankRates(): Promise<ExchangeRate[]> {
       console.log('Adding manual fallback values for Tenge Bank');
       const today = new Date().toISOString().split('T')[0];
 
-      rates.push(
-        {
-          bank: 'Tenge Bank',
-          currency: 'USD',
-          buy: 1248000, // 12480 * 100
-          sell: 1262000, // 12620 * 100
-          date: today,
-        },
-        {
-          bank: 'Tenge Bank',
-          currency: 'EUR',
-          buy: 1410000, // 14100 * 100
-          sell: 1470000, // 14700 * 100
-          date: today,
-        },
-        {
-          bank: 'Tenge Bank',
-          currency: 'RUB',
-          buy: 14000, // 140 * 100
-          sell: 16600, // 166 * 100
-          date: today,
-        }
-      );
+                   rates.push(
+               {
+                 bank: 'Tenge Bank',
+                 currency: 'USD',
+                 buy: 12480, // Already in "per 100" format
+                 sell: 12620, // Already in "per 100" format
+                 date: today,
+               },
+               {
+                 bank: 'Tenge Bank',
+                 currency: 'EUR',
+                 buy: 14100, // Already in "per 100" format
+                 sell: 14700, // Already in "per 100" format
+                 date: today,
+               },
+               {
+                 bank: 'Tenge Bank',
+                 currency: 'RUB',
+                 buy: 140, // Already in "per 100" format
+                 sell: 166, // Already in "per 100" format
+                 date: today,
+               }
+             );
     }
 
     console.log(`Tenge Bank rates fetched: ${rates.length}`);
