@@ -17,7 +17,8 @@
     "test:mini-app": "node scripts/test-mini-app.js",
     "test:rates": "node scripts/test-rates.js",
     "test:bot": "node scripts/test-bot.js",
-    "setup:production": "node scripts/setup-production.js"
+    "setup:production": "node scripts/setup-production.js",
+    "build:netlify": "next build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
