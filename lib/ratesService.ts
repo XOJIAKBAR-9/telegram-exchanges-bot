@@ -106,9 +106,7 @@ async function fetchHamkorbankRates(): Promise<ExchangeRate[]> {
     });
 
     // Convert map values to array
-    const rates = Array.from(currencyMap.values());
-
-    return rates;
+    return Array.from(currencyMap.values());
   } catch (error) {
     console.error('Error fetching Hamkorbank rates:', error);
     return [];

@@ -7,19 +7,21 @@ Your Exchange Rates Bot is now properly configured for Netlify deployment with s
 ## 📋 **What's Been Configured:**
 
 ### 1. **Next.js Configuration** (`next.config.cjs`)
+
 ```javascript
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',           // ✅ Static export enabled
-  trailingSlash: true,        // ✅ Proper URL handling
+  output: 'export', // ✅ Static export enabled
+  trailingSlash: true, // ✅ Proper URL handling
   images: {
-    unoptimized: true,        // ✅ Required for static export
+    unoptimized: true, // ✅ Required for static export
     domains: ['api.telegram.org'],
   },
 };
 ```
 
 ### 2. **Netlify Configuration** (`netlify.toml`)
+
 ```toml
 [build]
   command = "npm run build"
@@ -39,6 +41,7 @@ const nextConfig = {
 ```
 
 ### 3. **Client-Side Routing** (`public/_redirects`)
+
 ```
 /*    /index.html   200
 ```
@@ -100,11 +103,13 @@ If you want to use environment variables in production:
 ## 🐛 **Troubleshooting:**
 
 ### **If you get 404 errors:**
+
 1. ✅ **Check publish directory**: Should be `.next/server/app`
 2. ✅ **Verify build command**: Should be `npm run build`
-3. ✅ **Check _redirects file**: Should be in `public/_redirects`
+3. ✅ **Check \_redirects file**: Should be in `public/_redirects`
 
 ### **If build fails:**
+
 1. ✅ **Check Node.js version**: Should be 18+
 2. ✅ **Verify dependencies**: All packages installed
 3. ✅ **Check for TypeScript errors**: Fix any compilation issues
@@ -120,4 +125,4 @@ If you want to use environment variables in production:
 
 ## 🚀 **Ready to Deploy!**
 
-Your project is now fully configured for Netlify deployment. Follow the steps above and you'll have a live, working Exchange Rates Bot! 🎉 
+Your project is now fully configured for Netlify deployment. Follow the steps above and you'll have a live, working Exchange Rates Bot! 🎉

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Header from '@/components/Header';
 import { useTelegramMiniApp } from '@/lib/useTelegramMiniApp';
 import { fetchAllRates } from '@/lib/ratesService';
@@ -44,66 +44,69 @@ export default function Home() {
   const [isLoadingRates, setIsLoadingRates] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState<string>('USD');
 
+  const handleFetchRates = useCallback(
+    async (currency?: string) => {
+      setIsLoadingRates(true);
+      setSelectedCurrency(currency || 'ALL');
+
+      try {
+        const rates = await fetchAllRates();
+
+        if (currency) {
+          // Filter rates for specific currency from all banks
+          const currencyRates = rates.filter(
+            (rate) => rate.currency === currency
+          );
+          if (currencyRates.length > 0) {
+            setRatesData({
+              full: `${currency} Exchange Rates from All Banks`,
+              best: `📊 ${currency} Exchange Rates from All Banks`,
+              raw: currencyRates,
+            });
+          } else {
+            setRatesData({
+              full: `❌ No rates available for ${currency}`,
+              best: `❌ No ${currency} rates`,
+              raw: [],
+            });
+          }
+        } else {
+          // Show all rates
+          setRatesData({
+            full: 'All Exchange Rates',
+            best: '📊 All Exchange Rates from All Banks',
+            raw: rates,
+          });
+        }
+
+        if (isTelegramMiniApp && webApp) {
+          webApp.HapticFeedback?.notificationOccurred?.('success');
+        }
+      } catch (error) {
+        console.error('Error fetching rates:', error);
+        setRatesData({
+          full: '❌ Error fetching exchange rates.',
+          best: '❌ Error',
+          raw: [],
+        });
+
+        if (isTelegramMiniApp && webApp) {
+          webApp.showAlert('Failed to fetch exchange rates');
+          webApp.HapticFeedback?.notificationOccurred?.('error');
+        } else {
+          alert('Failed to fetch exchange rates');
+        }
+      } finally {
+        setIsLoadingRates(false);
+      }
+    },
+    [isTelegramMiniApp, webApp]
+  );
+
   // Fetch USD rates by default when component mounts
   useEffect(() => {
     handleFetchRates('USD');
-  }, []);
-
-  const handleFetchRates = async (currency?: string) => {
-    setIsLoadingRates(true);
-    setSelectedCurrency(currency || 'ALL');
-
-    try {
-      const rates = await fetchAllRates();
-
-      if (currency) {
-        // Filter rates for specific currency from all banks
-        const currencyRates = rates.filter(
-          (rate) => rate.currency === currency
-        );
-        if (currencyRates.length > 0) {
-          setRatesData({
-            full: `${currency} Exchange Rates from All Banks`,
-            best: `📊 ${currency} Exchange Rates from All Banks`,
-            raw: currencyRates,
-          });
-        } else {
-          setRatesData({
-            full: `❌ No rates available for ${currency}`,
-            best: `❌ No ${currency} rates`,
-            raw: [],
-          });
-        }
-      } else {
-        // Show all rates
-        setRatesData({
-          full: 'All Exchange Rates',
-          best: '📊 All Exchange Rates from All Banks',
-          raw: rates,
-        });
-      }
-
-      if (isTelegramMiniApp && webApp) {
-        webApp.HapticFeedback?.notificationOccurred?.('success');
-      }
-    } catch (error) {
-      console.error('Error fetching rates:', error);
-      setRatesData({
-        full: '❌ Error fetching exchange rates.',
-        best: '❌ Error',
-        raw: [],
-      });
-
-      if (isTelegramMiniApp && webApp) {
-        webApp.showAlert('Failed to fetch exchange rates');
-        webApp.HapticFeedback?.notificationOccurred?.('error');
-      } else {
-        alert('Failed to fetch exchange rates');
-      }
-    } finally {
-      setIsLoadingRates(false);
-    }
-  };
+  }, [handleFetchRates]);
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl min-h-screen">
