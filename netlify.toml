@@ -1,6 +1,6 @@
 [build]
-  command = "npm run build"
-  publish = "out"
+  command = "npm run build && cp -r .next/static .next/server/app/static"
+  publish = ".next/server/app"
 
 [build.environment]
   NODE_VERSION = "18"
@@ -8,8 +8,4 @@
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild" 
+  status = 200 
