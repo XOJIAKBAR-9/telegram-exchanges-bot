@@ -152,8 +152,8 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
               rates.push({
                 bank: 'Universal Bank',
                 currency: currency.toUpperCase(),
-                buy: buyRate, // Already in "per 100" format (12,500 = 12,500 per 100 USD)
-                sell: sellRate, // Already in "per 100" format (12,570 = 12,570 per 100 USD)
+                buy: buyRate / 100, // Convert from "per 100" to "per 1" format (12,500 -> 125.00 per 1 USD)
+                sell: sellRate / 100, // Convert from "per 100" to "per 1" format (12,570 -> 125.70 per 1 USD)
                 date: latestRate.date,
               });
               console.log(
@@ -190,22 +190,22 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
         {
           bank: 'Universal Bank',
           currency: 'USD',
-          buy: 12450, // Already in "per 100" format
-          sell: 12650, // Already in "per 100" format
+          buy: 124.50, // Convert from "per 100" to "per 1" format (12,450 -> 124.50 per 1 USD)
+          sell: 126.50, // Convert from "per 100" to "per 1" format (12,650 -> 126.50 per 1 USD)
           date: today,
         },
         {
           bank: 'Universal Bank',
           currency: 'EUR',
-          buy: 13000, // Already in "per 100" format
-          sell: 15200, // Already in "per 100" format
+          buy: 130.00, // Convert from "per 100" to "per 1" format (13,000 -> 130.00 per 1 EUR)
+          sell: 152.00, // Convert from "per 100" to "per 1" format (15,200 -> 152.00 per 1 EUR)
           date: today,
         },
         {
           bank: 'Universal Bank',
           currency: 'RUB',
-          buy: 150, // Already in "per 100" format
-          sell: 161, // Already in "per 100" format
+          buy: 1.50, // Convert from "per 100" to "per 1" format (150 -> 1.50 per 1 RUB)
+          sell: 1.61, // Convert from "per 100" to "per 1" format (161 -> 1.61 per 1 RUB)
           date: today,
         }
       );
@@ -222,22 +222,22 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
       {
         bank: 'Universal Bank',
         currency: 'USD',
-        buy: 1245000, // 12450 * 100
-        sell: 1265000, // 12650 * 100
+        buy: 124.50, // Convert from "per 100" to "per 1" format (12,450 -> 124.50 per 1 USD)
+        sell: 126.50, // Convert from "per 100" to "per 1" format (12,650 -> 126.50 per 1 USD)
         date: today,
       },
       {
         bank: 'Universal Bank',
         currency: 'EUR',
-        buy: 1300000, // 13000 * 100
-        sell: 1520000, // 15200 * 100
+        buy: 130.00, // Convert from "per 100" to "per 1" format (13,000 -> 130.00 per 1 EUR)
+        sell: 152.00, // Convert from "per 100" to "per 1" format (15,200 -> 152.00 per 1 EUR)
         date: today,
       },
       {
         bank: 'Universal Bank',
         currency: 'RUB',
-        buy: 15000, // 150 * 100
-        sell: 16100, // 161 * 100
+        buy: 1.50, // Convert from "per 100" to "per 1" format (150 -> 1.50 per 1 RUB)
+        sell: 1.61, // Convert from "per 100" to "per 1" format (161 -> 1.61 per 1 RUB)
         date: today,
       },
     ];
