@@ -1,0 +1,72 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "header": {
+    "title": "🏦 Exchange Rates",
+    "subtitle": "Live exchange rates from Hamkorbank, Universal Bank & Tenge Bank",
+    "telegramMiniApp": "Telegram Mini App",
+    "web": "Web",
+    "greeting": "Hi, {name}!"
+  },
+  "exchangeRates": {
+    "title": "Exchange Rates",
+    "subtitle": "Get live exchange rates from Hamkorbank, Universal Bank & Tenge Bank in Uzbekistan",
+    "currencyButtons": {
+      "usd": "💵 USD",
+      "eur": "💶 EUR",
+      "rub": "💷 RUB"
+    },
+    "allRates": "📊 All Exchange Rates",
+    "loadingRates": "🔄 Loading...",
+    "noRates": "❌ No exchange rates available",
+    "errorFetching": "❌ Error fetching exchange rates",
+    "ratesFetched": "rates fetched",
+    "allCurrencies": "All Currencies",
+    "platform": "Platform",
+    "selectedCurrency": "Selected Currency"
+  },
+  "table": {
+    "bank": "Bank",
+    "buyRate": "Buy Rate",
+    "sellRate": "Sell Rate",
+    "noRatesAvailable": "No exchange rates available",
+    "loadingRates": "Loading exchange rates...",
+    "clickToLoad": "Click a currency button to load exchange rates"
+  },
+  "banks": {
+    "hamkorbank": "Hamkorbank",
+    "universalBank": "Universal Bank",
+    "tengeBank": "Tenge Bank"
+  },
+  "currencies": {
+    "usd": "USD",
+    "eur": "EUR",
+    "rub": "RUB"
+  },
+  "telegram": {
+    "commands": {
+      "start": "Bot started! Use /rates command to view exchange rates.",
+      "help": "Available commands:\n/rates - View all exchange rates\n/best - View best rates\n/help - Help",
+      "info": "This bot provides exchange rates from major banks in Uzbekistan."
+    },
+    "rates": {
+      "title": "💱 Exchange Rates",
+      "loading": "Loading exchange rates from all banks...",
+      "error": "Error fetching exchange rates. Please try again later."
+    },
+    "bestRates": {
+      "title": "🏆 Best Exchange Rates",
+      "loading": "Calculating best rates...",
+      "error": "Error calculating best rates."
+    }
+  }
+} 

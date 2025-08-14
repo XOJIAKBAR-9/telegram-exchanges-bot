@@ -8,6 +8,7 @@ import { ExchangeRatesTable } from '@/components/ExchangeRatesTable';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Language, detectLanguage, t } from '@/lib/translations';
 
 declare global {
   // eslint-disable-next-line no-unused-vars
@@ -43,6 +44,12 @@ export default function Home() {
   const [ratesData, setRatesData] = useState<any>(null);
   const [isLoadingRates, setIsLoadingRates] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState<string>('USD');
+  const [language, setLanguage] = useState<Language>('uz');
+
+  useEffect(() => {
+    const detectedLang = detectLanguage();
+    setLanguage(detectedLang);
+  }, []);
 
   const handleFetchRates = useCallback(
     async (currency?: string) => {
@@ -110,17 +117,21 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl min-h-screen">
-      <Header isTelegramWebApp={isTelegramMiniApp} user={user} />
+      <Header 
+        isTelegramWebApp={isTelegramMiniApp} 
+        language={language}
+        onLanguageChange={setLanguage}
+        user={user} 
+      />
       <div className="space-y-6">
         {/* Exchange Rates Section */}
         <Card className="text-center">
           <CardContent className="space-y-6 p-8">
             <div className="text-6xl">💱</div>
             <div>
-              <h2 className="text-2xl font-bold mb-2">Exchange Rates</h2>
+              <h2 className="text-2xl font-bold mb-2">{t(language, 'exchangeRates.title')}</h2>
               <p className="text-muted-foreground mb-6">
-                Get live exchange rates from Hamkorbank, Universal Bank & Tenge
-                Bank in Uzbekistan
+                {t(language, 'exchangeRates.subtitle')}
               </p>
             </div>
 
@@ -133,7 +144,7 @@ export default function Home() {
                 size="lg"
                 className="h-12"
               >
-                💵 USD
+                {t(language, 'exchangeRates.currencyButtons.usd')}
               </Button>
               <Button
                 onClick={() => handleFetchRates('EUR')}
@@ -142,7 +153,7 @@ export default function Home() {
                 size="lg"
                 className="h-12"
               >
-                💶 EUR
+                {t(language, 'exchangeRates.currencyButtons.eur')}
               </Button>
               <Button
                 onClick={() => handleFetchRates('RUB')}
@@ -151,7 +162,7 @@ export default function Home() {
                 size="lg"
                 className="h-12"
               >
-                💷 RUB
+                {t(language, 'exchangeRates.currencyButtons.rub')}
               </Button>
             </div>
 
@@ -163,12 +174,12 @@ export default function Home() {
               size="lg"
               className="w-full h-12 text-lg"
             >
-              {isLoadingRates ? '🔄 Loading...' : '📊 All Exchange Rates'}
+              {isLoadingRates ? t(language, 'exchangeRates.loadingRates') : t(language, 'exchangeRates.allRates')}
             </Button>
 
             <div className="text-sm text-muted-foreground space-y-2">
-              <p>Platform: {isTelegramMiniApp ? 'Telegram Mini App' : 'Web'}</p>
-              <p>Selected Currency: {selectedCurrency}</p>
+              <p>{t(language, 'exchangeRates.platform')}: {isTelegramMiniApp ? t(language, 'header.telegramMiniApp') : t(language, 'header.web')}</p>
+              <p>{t(language, 'exchangeRates.selectedCurrency')}: {selectedCurrency}</p>
               {user && (
                 <p>
                   User: {user.first_name} {user.last_name}
@@ -185,8 +196,8 @@ export default function Home() {
               {selectedCurrency === 'USD' ||
               selectedCurrency === 'EUR' ||
               selectedCurrency === 'RUB'
-                ? `${selectedCurrency} Exchange Rates from All Banks`
-                : 'All Exchange Rates'}
+                ? `${selectedCurrency} ${t(language, 'exchangeRates.title')} from All Banks`
+                : t(language, 'exchangeRates.allRates')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -194,11 +205,11 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="flex items-center gap-2 mb-4">
                   <Badge variant="outline">
-                    {ratesData.raw.length} rates fetched
+                    {ratesData.raw.length} {t(language, 'exchangeRates.ratesFetched')}
                   </Badge>
                   <Badge variant="secondary">
                     {selectedCurrency === 'ALL'
-                      ? 'All Currencies'
+                      ? t(language, 'exchangeRates.allCurrencies')
                       : selectedCurrency}
                   </Badge>
                 </div>
@@ -212,6 +223,7 @@ export default function Home() {
                       ? selectedCurrency
                       : undefined
                   }
+                  language={language}
                 />
               </div>
             ) : (
@@ -220,10 +232,10 @@ export default function Home() {
                   {isLoadingRates ? (
                     <div className="flex items-center justify-center space-x-2">
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
-                      <span>Loading USD exchange rates...</span>
+                      <span>{t(language, 'table.loadingRates')}</span>
                     </div>
                   ) : (
-                    <span>Click a currency button to load exchange rates</span>
+                    <span>{t(language, 'table.clickToLoad')}</span>
                   )}
                 </div>
               </div>

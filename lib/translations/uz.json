@@ -1,0 +1,72 @@
+{
+  "common": {
+    "loading": "Yuklanmoqda...",
+    "error": "Xatolik",
+    "success": "Muvaffaqiyatli",
+    "close": "Yopish",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "back": "Orqaga",
+    "next": "Keyingi",
+    "previous": "Oldingi"
+  },
+  "header": {
+    "title": "🏦 Valyuta kurslari",
+    "subtitle": "Hamkorbank, Universal Bank va Tenge Bank'dan jonli valyuta kurslari",
+    "telegramMiniApp": "Telegram Mini App",
+    "web": "Veb-sayt",
+    "greeting": "Salom, {name}!"
+  },
+  "exchangeRates": {
+    "title": "Valyuta kurslari",
+    "subtitle": "O'zbekistondagi Hamkorbank, Universal Bank va Tenge Bank'dan jonli valyuta kurslarini oling",
+    "currencyButtons": {
+      "usd": "💵 USD",
+      "eur": "💶 EUR",
+      "rub": "💷 RUB"
+    },
+    "allRates": "📊 Barcha valyuta kurslari",
+    "loadingRates": "🔄 Yuklanmoqda...",
+    "noRates": "❌ Valyuta kurslari mavjud emas",
+    "errorFetching": "❌ Valyuta kurslarini yuklashda xatolik yuz berdi",
+    "ratesFetched": "kurslar yuklandi",
+    "allCurrencies": "Barcha valyutalar",
+    "platform": "Platforma",
+    "selectedCurrency": "Tanlangan valyuta"
+  },
+  "table": {
+    "bank": "Bank",
+    "buyRate": "Sotib olish kursi",
+    "sellRate": "Sotish kursi",
+    "noRatesAvailable": "Valyuta kurslari mavjud emas",
+    "loadingRates": "Valyuta kurslari yuklanmoqda...",
+    "clickToLoad": "Valyuta kurslarini yuklash uchun tugmani bosing"
+  },
+  "banks": {
+    "hamkorbank": "Hamkorbank",
+    "universalBank": "Universal Bank",
+    "tengeBank": "Tenge Bank"
+  },
+  "currencies": {
+    "usd": "USD",
+    "eur": "EUR",
+    "rub": "RUB"
+  },
+  "telegram": {
+    "commands": {
+      "start": "Bot ishga tushdi! Valyuta kurslarini ko'rish uchun /rates buyrug'ini ishlating.",
+      "help": "Mavjud buyruqlar:\n/rates - Barcha valyuta kurslarini ko'rish\n/best - Eng yaxshi kurslarni ko'rish\n/help - Yordam",
+      "info": "Bu bot O'zbekistondagi asosiy banklardan valyuta kurslarini taqdim etadi."
+    },
+    "rates": {
+      "title": "💱 Valyuta kurslari",
+      "loading": "Barcha banklardan valyuta kurslari yuklanmoqda...",
+      "error": "Valyuta kurslarini yuklashda xatolik yuz berdi. Iltimos, keyinroq urinib ko'ring."
+    },
+    "bestRates": {
+      "title": "🏆 Eng yaxshi valyuta kurslari",
+      "loading": "Eng yaxshi kurslar hisoblanmoqda...",
+      "error": "Eng yaxshi kurslarni hisoblashda xatolik yuz berdi."
+    }
+  }
+} 

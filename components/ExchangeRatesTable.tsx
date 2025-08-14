@@ -9,22 +9,25 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Language, t } from '@/lib/translations';
 
 interface ExchangeRatesTableProps {
   rates: ExchangeRate[];
   currency?: string;
+  language: Language;
 }
 
 export function ExchangeRatesTable({
   rates,
   currency,
+  language,
 }: ExchangeRatesTableProps) {
   if (!rates || rates.length === 0) {
     return (
       <Card>
         <CardContent className="p-6">
           <div className="text-center text-muted-foreground">
-            No exchange rates available
+            {t(language, 'table.noRatesAvailable')}
           </div>
         </CardContent>
       </Card>
@@ -91,9 +94,9 @@ export function ExchangeRatesTable({
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Bank</TableHead>
-                  <TableHead className="text-right">Buy Rate</TableHead>
-                  <TableHead className="text-right">Sell Rate</TableHead>
+                  <TableHead>{t(language, 'table.bank')}</TableHead>
+                  <TableHead className="text-right">{t(language, 'table.buyRate')}</TableHead>
+                  <TableHead className="text-right">{t(language, 'table.sellRate')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
