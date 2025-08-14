@@ -95,8 +95,12 @@ export function ExchangeRatesTable({
               <TableHeader>
                 <TableRow>
                   <TableHead>{t(language, 'table.bank')}</TableHead>
-                  <TableHead className="text-right">{t(language, 'table.buyRate')}</TableHead>
-                  <TableHead className="text-right">{t(language, 'table.sellRate')}</TableHead>
+                  <TableHead className="text-right">
+                    {t(language, 'table.buyRate')}
+                  </TableHead>
+                  <TableHead className="text-right">
+                    {t(language, 'table.sellRate')}
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

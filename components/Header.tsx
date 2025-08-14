@@ -18,7 +18,12 @@ interface HeaderProps {
   } | null;
 }
 
-export default function Header({ isTelegramWebApp, language, onLanguageChange, user }: HeaderProps) {
+export default function Header({
+  isTelegramWebApp,
+  language,
+  onLanguageChange,
+  user,
+}: HeaderProps) {
   return (
     <header className="text-center mb-8">
       <Card>
@@ -27,7 +32,9 @@ export default function Header({ isTelegramWebApp, language, onLanguageChange, u
             <div className="flex-1"></div>
             <LanguageSelector onLanguageChange={onLanguageChange} />
           </div>
-          <h1 className="text-3xl font-bold mb-2">{t(language, 'header.title')}</h1>
+          <h1 className="text-3xl font-bold mb-2">
+            {t(language, 'header.title')}
+          </h1>
           <p className="text-muted-foreground">
             {isTelegramWebApp
               ? t(language, 'header.subtitle')
@@ -35,7 +42,9 @@ export default function Header({ isTelegramWebApp, language, onLanguageChange, u
           </p>
           {isTelegramWebApp && (
             <div className="mt-4 flex justify-center gap-2">
-              <Badge variant="outline">{t(language, 'header.telegramMiniApp')}</Badge>
+              <Badge variant="outline">
+                {t(language, 'header.telegramMiniApp')}
+              </Badge>
               {user && (
                 <Badge variant="secondary">
                   {t(language, 'header.greeting', { name: user.first_name })}

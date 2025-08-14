@@ -117,11 +117,11 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl min-h-screen">
-      <Header 
-        isTelegramWebApp={isTelegramMiniApp} 
+      <Header
+        isTelegramWebApp={isTelegramMiniApp}
         language={language}
         onLanguageChange={setLanguage}
-        user={user} 
+        user={user}
       />
       <div className="space-y-6">
         {/* Exchange Rates Section */}
@@ -129,7 +129,9 @@ export default function Home() {
           <CardContent className="space-y-6 p-8">
             <div className="text-6xl">💱</div>
             <div>
-              <h2 className="text-2xl font-bold mb-2">{t(language, 'exchangeRates.title')}</h2>
+              <h2 className="text-2xl font-bold mb-2">
+                {t(language, 'exchangeRates.title')}
+              </h2>
               <p className="text-muted-foreground mb-6">
                 {t(language, 'exchangeRates.subtitle')}
               </p>
@@ -174,12 +176,22 @@ export default function Home() {
               size="lg"
               className="w-full h-12 text-lg"
             >
-              {isLoadingRates ? t(language, 'exchangeRates.loadingRates') : t(language, 'exchangeRates.allRates')}
+              {isLoadingRates
+                ? t(language, 'exchangeRates.loadingRates')
+                : t(language, 'exchangeRates.allRates')}
             </Button>
 
             <div className="text-sm text-muted-foreground space-y-2">
-              <p>{t(language, 'exchangeRates.platform')}: {isTelegramMiniApp ? t(language, 'header.telegramMiniApp') : t(language, 'header.web')}</p>
-              <p>{t(language, 'exchangeRates.selectedCurrency')}: {selectedCurrency}</p>
+              <p>
+                {t(language, 'exchangeRates.platform')}:{' '}
+                {isTelegramMiniApp
+                  ? t(language, 'header.telegramMiniApp')
+                  : t(language, 'header.web')}
+              </p>
+              <p>
+                {t(language, 'exchangeRates.selectedCurrency')}:{' '}
+                {selectedCurrency}
+              </p>
               {user && (
                 <p>
                   User: {user.first_name} {user.last_name}
@@ -205,7 +217,8 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="flex items-center gap-2 mb-4">
                   <Badge variant="outline">
-                    {ratesData.raw.length} {t(language, 'exchangeRates.ratesFetched')}
+                    {ratesData.raw.length}{' '}
+                    {t(language, 'exchangeRates.ratesFetched')}
                   </Badge>
                   <Badge variant="secondary">
                     {selectedCurrency === 'ALL'

@@ -4,14 +4,23 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Language, languages, languageNames, detectLanguage, setLanguage } from '@/lib/translations';
+import {
+  Language,
+  languages,
+  languageNames,
+  detectLanguage,
+  setLanguage,
+} from '@/lib/translations';
 
 interface LanguageSelectorProps {
   onLanguageChange?: (lang: Language) => void;
   className?: string;
 }
 
-export function LanguageSelector({ onLanguageChange, className }: LanguageSelectorProps) {
+export function LanguageSelector({
+  onLanguageChange,
+  className,
+}: LanguageSelectorProps) {
   const [currentLanguage, setCurrentLanguage] = useState<Language>('uz');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -78,4 +87,4 @@ export function LanguageSelector({ onLanguageChange, className }: LanguageSelect
       )}
     </div>
   );
-} 
+}
