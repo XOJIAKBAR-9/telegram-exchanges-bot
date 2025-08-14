@@ -152,8 +152,8 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
               rates.push({
                 bank: 'Universal Bank',
                 currency: currency.toUpperCase(),
-                buy: buyRate, // Already in "per 1" format (12,500 = 12,500 per 1 USD)
-                sell: sellRate, // Already in "per 1" format (12,570 = 12,570 per 1 USD)
+                buy: buyRate, // Already in "per 100" format (12,500 = 12,500 per 100 USD)
+                sell: sellRate, // Already in "per 100" format (12,570 = 12,570 per 100 USD)
                 date: latestRate.date,
               });
               console.log(
@@ -190,22 +190,22 @@ async function fetchUniversalBankRates(): Promise<ExchangeRate[]> {
                {
                  bank: 'Universal Bank',
                  currency: 'USD',
-                 buy: 12450, // Already in "per 1" format
-                 sell: 12650, // Already in "per 1" format
+                 buy: 12450, // Already in "per 100" format
+                 sell: 12650, // Already in "per 100" format
                  date: today,
                },
                {
                  bank: 'Universal Bank',
                  currency: 'EUR',
-                 buy: 13000, // Already in "per 1" format
-                 sell: 15200, // Already in "per 1" format
+                 buy: 13000, // Already in "per 100" format
+                 sell: 15200, // Already in "per 100" format
                  date: today,
                },
                {
                  bank: 'Universal Bank',
                  currency: 'RUB',
-                 buy: 150, // Already in "per 1" format
-                 sell: 161, // Already in "per 1" format
+                 buy: 150, // Already in "per 100" format
+                 sell: 161, // Already in "per 100" format
                  date: today,
                }
              );
