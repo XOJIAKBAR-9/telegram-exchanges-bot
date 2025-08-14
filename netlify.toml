@@ -5,6 +5,11 @@
 [build.environment]
   NODE_VERSION = "18"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  [plugins.inputs]
+    skip_plugin = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
