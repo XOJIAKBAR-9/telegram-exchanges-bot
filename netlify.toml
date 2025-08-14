@@ -1,11 +1,9 @@
 [build]
-  command = "npm run build && mkdir -p out && cp -r .next/server/app/* out/ && cp -r .next/static out/ && echo 'Static files copied successfully'"
-  publish = "out"
+  command = "npm run build"
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "18"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200 
+[[plugins]]
+  package = "@netlify/plugin-nextjs" 
