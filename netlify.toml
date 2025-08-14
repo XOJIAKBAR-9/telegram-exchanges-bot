@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build && mkdir -p out && cp -r .next/server/app/* out/ && cp -r .next/static out/"
+  command = "npm run build && mkdir -p out && cp -r .next/server/app/* out/ && cp -r .next/static out/ && echo 'Static files copied successfully'"
   publish = "out"
 
 [build.environment]
