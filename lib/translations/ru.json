@@ -12,14 +12,14 @@
   },
   "header": {
     "title": "🏦 Курсы валют",
-    "subtitle": "Живые курсы валют от Hamkorbank, Universal Bank и Tenge Bank",
+    "subtitle": "Живые курсы валют от Hamkorbank, Universal Bank, Tenge Bank и Anorbank",
     "telegramMiniApp": "Telegram Mini App",
     "web": "Веб-сайт",
     "greeting": "Привет, {name}!"
   },
   "exchangeRates": {
     "title": "Курсы валют",
-    "subtitle": "Получите живые курсы валют от Hamkorbank, Universal Bank и Tenge Bank в Узбекистане",
+    "subtitle": "Получите живые курсы валют от Hamkorbank, Universal Bank, Tenge Bank и Anorbank в Узбекистане",
     "currencyButtons": {
       "usd": "💵 USD",
       "eur": "💶 EUR",
@@ -45,7 +45,8 @@
   "banks": {
     "hamkorbank": "Hamkorbank",
     "universalBank": "Universal Bank",
-    "tengeBank": "Tenge Bank"
+    "tengeBank": "Tenge Bank",
+    "anorbank": "Anorbank"
   },
   "currencies": {
     "usd": "USD",

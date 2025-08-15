@@ -48,6 +48,9 @@ export function ExchangeRatesTable({
     });
   }
 
+  // Define all banks that should always be shown
+  const allBanks = ['Hamkorbank', 'Universal Bank', 'Tenge Bank', 'Anorbank'];
+
   const formatRate = (rate: number) => {
     return rate.toLocaleString('en-US', {
       minimumFractionDigits: 2,
@@ -63,6 +66,8 @@ export function ExchangeRatesTable({
         return '🏛️';
       case 'Tenge Bank':
         return '🏪';
+      case 'Anorbank':
+        return '🏢';
       default:
         return '🏦';
     }
@@ -104,26 +109,44 @@ export function ExchangeRatesTable({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {currencyRates.map((rate, index) => (
-                  <TableRow key={`${rate.bank}-${rate.currency}-${index}`}>
-                    <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
-                        <span>{getBankIcon(rate.bank)}</span>
-                        <span>{rate.bank}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant="secondary" className="font-mono">
-                        {formatRate(rate.buy)} UZS
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant="secondary" className="font-mono">
-                        {formatRate(rate.sell)} UZS
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {allBanks.map((bankName) => {
+                  const bankRate = currencyRates.find(
+                    (rate) => rate.bank === bankName
+                  );
+
+                  return (
+                    <TableRow key={`${bankName}-${curr}`}>
+                      <TableCell className="font-medium">
+                        <div className="flex items-center gap-2">
+                          <span>{getBankIcon(bankName)}</span>
+                          <span>{bankName}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {bankRate ? (
+                          <Badge variant="secondary" className="font-mono">
+                            {formatRate(bankRate.buy)} UZS
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="font-mono">
+                            -
+                          </Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {bankRate ? (
+                          <Badge variant="secondary" className="font-mono">
+                            {formatRate(bankRate.sell)} UZS
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="font-mono">
+                            -
+                          </Badge>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </CardContent>

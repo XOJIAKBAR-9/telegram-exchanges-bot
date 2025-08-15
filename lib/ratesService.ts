@@ -1,4 +1,4 @@
-// Exchange rates service for Hamkorbank, Universal Bank, and Tenge Bank
+// Exchange rates service for Hamkorbank, Universal Bank, Tenge Bank, and Anorbank
 // Fetches live rates from multiple banks
 
 export interface ExchangeRate {
@@ -362,19 +362,54 @@ async function fetchTengeBankRates(): Promise<ExchangeRate[]> {
 }
 
 /**
- * Fetches exchange rates from Hamkorbank, Universal Bank, and Tenge Bank
+ * Fetches exchange rates from Anorbank via API route
+ * API: /api/anorbank-rates
+ * Uses: Server-side scraping with Cheerio
+ */
+async function fetchAnorbankRates(): Promise<ExchangeRate[]> {
+  try {
+    const response = await fetch('/api/anorbank-rates', {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Anorbank API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.success && data.rates) {
+      console.log(`Anorbank rates fetched: ${data.rates.length}`);
+      return data.rates;
+    } else {
+      console.log('Anorbank API returned fallback values');
+      return data.rates || [];
+    }
+  } catch (error) {
+    console.error('Error fetching Anorbank rates:', error);
+
+    // Return empty array if API fails (will show '-' in UI)
+    return [];
+  }
+}
+
+/**
+ * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, and Anorbank
  * Returns a merged array of ExchangeRate objects
  */
 export async function fetchAllRates(): Promise<ExchangeRate[]> {
   try {
     console.log('Fetching exchange rates from all banks...');
 
-    // Fetch from all three banks in parallel
-    const [hamkorbankRates, universalBankRates, tengeBankRates] =
+    // Fetch from all four banks in parallel
+    const [hamkorbankRates, universalBankRates, tengeBankRates, anorbankRates] =
       await Promise.allSettled([
         fetchHamkorbankRates(),
         fetchUniversalBankRates(),
         fetchTengeBankRates(),
+        fetchAnorbankRates(),
       ]);
 
     const allRates: ExchangeRate[] = [];
@@ -389,6 +424,10 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
 
     if (tengeBankRates.status === 'fulfilled') {
       allRates.push(...tengeBankRates.value);
+    }
+
+    if (anorbankRates.status === 'fulfilled') {
+      allRates.push(...anorbankRates.value);
     }
 
     console.log(`Successfully fetched ${allRates.length} rates from all banks`);
@@ -434,6 +473,9 @@ export function formatRatesTable(rates: ExchangeRate[]): string {
       const tengeBankRate = currencyRates.find(
         (rate) => rate.bank === 'Tenge Bank'
       );
+      const anorbankRate = currencyRates.find(
+        (rate) => rate.bank === 'Anorbank'
+      );
 
       if (hamkorbankRate) {
         table += `🏦 ${hamkorbankRate.bank}\n`;
@@ -454,6 +496,13 @@ export function formatRatesTable(rates: ExchangeRate[]): string {
         table += `   💰 Buy: ${tengeBankRate.buy.toLocaleString('en-US', { minimumFractionDigits: 2 })} UZS per 100 ${tengeBankRate.currency}\n`;
         table += `   💸 Sell: ${tengeBankRate.sell.toLocaleString('en-US', { minimumFractionDigits: 2 })} UZS per 100 ${tengeBankRate.currency}\n`;
         table += `   📅 ${new Date(tengeBankRate.date).toLocaleDateString('en-US')}\n\n`;
+      }
+
+      if (anorbankRate) {
+        table += `🏦 ${anorbankRate.bank}\n`;
+        table += `   💰 Buy: ${anorbankRate.buy.toLocaleString('en-US', { minimumFractionDigits: 2 })} UZS per 100 ${anorbankRate.currency}\n`;
+        table += `   💸 Sell: ${anorbankRate.sell.toLocaleString('en-US', { minimumFractionDigits: 2 })} UZS per 100 ${anorbankRate.currency}\n`;
+        table += `   📅 ${new Date(anorbankRate.date).toLocaleDateString('en-US')}\n\n`;
       }
     }
   });

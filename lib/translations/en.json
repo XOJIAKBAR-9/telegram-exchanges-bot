@@ -12,14 +12,14 @@
   },
   "header": {
     "title": "🏦 Exchange Rates",
-    "subtitle": "Live exchange rates from Hamkorbank, Universal Bank & Tenge Bank",
+    "subtitle": "Live exchange rates from Hamkorbank, Universal Bank, Tenge Bank & Anorbank",
     "telegramMiniApp": "Telegram Mini App",
     "web": "Web",
     "greeting": "Hi, {name}!"
   },
   "exchangeRates": {
     "title": "Exchange Rates",
-    "subtitle": "Get live exchange rates from Hamkorbank, Universal Bank & Tenge Bank in Uzbekistan",
+    "subtitle": "Get live exchange rates from Hamkorbank, Universal Bank, Tenge Bank & Anorbank in Uzbekistan",
     "currencyButtons": {
       "usd": "💵 USD",
       "eur": "💶 EUR",
@@ -45,7 +45,8 @@
   "banks": {
     "hamkorbank": "Hamkorbank",
     "universalBank": "Universal Bank",
-    "tengeBank": "Tenge Bank"
+    "tengeBank": "Tenge Bank",
+    "anorbank": "Anorbank"
   },
   "currencies": {
     "usd": "USD",

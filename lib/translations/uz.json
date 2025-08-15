@@ -12,14 +12,14 @@
   },
   "header": {
     "title": "🏦 Valyuta kurslari",
-    "subtitle": "Hamkorbank, Universal Bank va Tenge Bank'dan jonli valyuta kurslari",
+    "subtitle": "Hamkorbank, Universal Bank, Tenge Bank va Anorbank'dan jonli valyuta kurslari",
     "telegramMiniApp": "Telegram Mini App",
     "web": "Veb-sayt",
     "greeting": "Salom, {name}!"
   },
   "exchangeRates": {
     "title": "Valyuta kurslari",
-    "subtitle": "O'zbekistondagi Hamkorbank, Universal Bank va Tenge Bank'dan jonli valyuta kurslarini oling",
+    "subtitle": "O'zbekistondagi Hamkorbank, Universal Bank, Tenge Bank va Anorbank'dan jonli valyuta kurslarini oling",
     "currencyButtons": {
       "usd": "💵 USD",
       "eur": "💶 EUR",
@@ -45,7 +45,8 @@
   "banks": {
     "hamkorbank": "Hamkorbank",
     "universalBank": "Universal Bank",
-    "tengeBank": "Tenge Bank"
+    "tengeBank": "Tenge Bank",
+    "anorbank": "Anorbank"
   },
   "currencies": {
     "usd": "USD",
