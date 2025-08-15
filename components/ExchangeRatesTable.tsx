@@ -56,6 +56,7 @@ export function ExchangeRatesTable({
     'Anorbank',
     'NBU',
     'Davr Bank',
+    'InfinBank',
   ];
 
   const formatRate = (rate: number) => {
@@ -79,6 +80,8 @@ export function ExchangeRatesTable({
         return '🏛️';
       case 'Davr Bank':
         return '🏦';
+      case 'InfinBank':
+        return '🏛️';
       default:
         return '🏦';
     }

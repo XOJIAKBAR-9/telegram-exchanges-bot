@@ -464,14 +464,48 @@ async function fetchDavrBankRates(): Promise<ExchangeRate[]> {
 }
 
 /**
- * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, NBU, and Davr Bank
+ * Fetches exchange rates from InfinBank via API route
+ * API: /api/infinbank-rates
+ * Uses: Server-side scraping with regex parsing (handled by the API route)
+ */
+async function fetchInfinBankRates(): Promise<ExchangeRate[]> {
+  try {
+    const response = await fetch('/api/infinbank-rates', {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`InfinBank API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.success && data.rates) {
+      console.log(`InfinBank rates fetched: ${data.rates.length}`);
+      return data.rates;
+    } else {
+      console.log('InfinBank API returned fallback values');
+      return data.rates || [];
+    }
+  } catch (error) {
+    console.error('Error fetching InfinBank rates:', error);
+
+    // Return empty array if API fails (will show '-' in UI)
+    return [];
+  }
+}
+
+/**
+ * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, NBU, Davr Bank, and InfinBank
  * Returns a merged array of ExchangeRate objects
  */
 export async function fetchAllRates(): Promise<ExchangeRate[]> {
   try {
     console.log('Fetching exchange rates from all banks...');
 
-    // Fetch from all six banks in parallel
+    // Fetch from all seven banks in parallel
     const [
       hamkorbankRates,
       universalBankRates,
@@ -479,6 +513,7 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
       anorbankRates,
       nbuRates,
       davrBankRates,
+      infinBankRates,
     ] = await Promise.allSettled([
       fetchHamkorbankRates(),
       fetchUniversalBankRates(),
@@ -486,6 +521,7 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
       fetchAnorbankRates(),
       fetchNbuRates(),
       fetchDavrBankRates(),
+      fetchInfinBankRates(),
     ]);
 
     const allRates: ExchangeRate[] = [];
@@ -512,6 +548,10 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
 
     if (davrBankRates.status === 'fulfilled') {
       allRates.push(...davrBankRates.value);
+    }
+
+    if (infinBankRates.status === 'fulfilled') {
+      allRates.push(...infinBankRates.value);
     }
 
     console.log(`Successfully fetched ${allRates.length} rates from all banks`);
