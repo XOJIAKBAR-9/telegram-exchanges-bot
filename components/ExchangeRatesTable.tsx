@@ -49,7 +49,13 @@ export function ExchangeRatesTable({
   }
 
   // Define all banks that should always be shown
-  const allBanks = ['Hamkorbank', 'Universal Bank', 'Tenge Bank', 'Anorbank'];
+  const allBanks = [
+    'Hamkorbank',
+    'Universal Bank',
+    'Tenge Bank',
+    'Anorbank',
+    'NBU',
+  ];
 
   const formatRate = (rate: number) => {
     return rate.toLocaleString('en-US', {
@@ -68,6 +74,8 @@ export function ExchangeRatesTable({
         return '🏪';
       case 'Anorbank':
         return '🏢';
+      case 'NBU':
+        return '🏛️';
       default:
         return '🏦';
     }

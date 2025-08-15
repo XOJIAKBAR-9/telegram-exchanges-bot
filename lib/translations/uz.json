@@ -12,7 +12,7 @@
   },
   "header": {
     "title": "🏦 Valyuta kurslari",
-    "subtitle": "Hamkorbank, Universal Bank, Tenge Bank va Anorbank'dan jonli valyuta kurslari",
+    "subtitle": "Hamkorbank, Universal Bank, Tenge Bank, Anorbank va NBU'dan jonli valyuta kurslari",
     "telegramMiniApp": "Telegram Mini App",
     "web": "Veb-sayt",
     "greeting": "Salom, {name}!"
@@ -46,7 +46,8 @@
     "hamkorbank": "Hamkorbank",
     "universalBank": "Universal Bank",
     "tengeBank": "Tenge Bank",
-    "anorbank": "Anorbank"
+    "anorbank": "Anorbank",
+    "nbu": "NBU"
   },
   "currencies": {
     "usd": "USD",

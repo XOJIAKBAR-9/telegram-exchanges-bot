@@ -12,7 +12,7 @@
   },
   "header": {
     "title": "🏦 Курсы валют",
-    "subtitle": "Живые курсы валют от Hamkorbank, Universal Bank, Tenge Bank и Anorbank",
+    "subtitle": "Живые курсы валют от Hamkorbank, Universal Bank, Tenge Bank, Anorbank и NBU",
     "telegramMiniApp": "Telegram Mini App",
     "web": "Веб-сайт",
     "greeting": "Привет, {name}!"
@@ -46,7 +46,8 @@
     "hamkorbank": "Hamkorbank",
     "universalBank": "Universal Bank",
     "tengeBank": "Tenge Bank",
-    "anorbank": "Anorbank"
+    "anorbank": "Anorbank",
+    "nbu": "NBU"
   },
   "currencies": {
     "usd": "USD",

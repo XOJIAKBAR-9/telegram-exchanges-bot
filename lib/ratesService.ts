@@ -396,21 +396,61 @@ async function fetchAnorbankRates(): Promise<ExchangeRate[]> {
 }
 
 /**
- * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, and Anorbank
+ * Fetches exchange rates from NBU via API route
+ * API: /api/nbu-rates
+ * Uses: Server-side scraping with regex parsing (handled by the API route)
+ */
+async function fetchNbuRates(): Promise<ExchangeRate[]> {
+  try {
+    const response = await fetch('/api/nbu-rates', {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`NBU API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.success && data.rates) {
+      console.log(`NBU rates fetched: ${data.rates.length}`);
+      return data.rates;
+    } else {
+      console.log('NBU API returned fallback values');
+      return data.rates || [];
+    }
+  } catch (error) {
+    console.error('Error fetching NBU rates:', error);
+
+    // Return empty array if API fails (will show '-' in UI)
+    return [];
+  }
+}
+
+/**
+ * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, and NBU
  * Returns a merged array of ExchangeRate objects
  */
 export async function fetchAllRates(): Promise<ExchangeRate[]> {
   try {
     console.log('Fetching exchange rates from all banks...');
 
-    // Fetch from all four banks in parallel
-    const [hamkorbankRates, universalBankRates, tengeBankRates, anorbankRates] =
-      await Promise.allSettled([
-        fetchHamkorbankRates(),
-        fetchUniversalBankRates(),
-        fetchTengeBankRates(),
-        fetchAnorbankRates(),
-      ]);
+    // Fetch from all five banks in parallel
+    const [
+      hamkorbankRates,
+      universalBankRates,
+      tengeBankRates,
+      anorbankRates,
+      nbuRates,
+    ] = await Promise.allSettled([
+      fetchHamkorbankRates(),
+      fetchUniversalBankRates(),
+      fetchTengeBankRates(),
+      fetchAnorbankRates(),
+      fetchNbuRates(),
+    ]);
 
     const allRates: ExchangeRate[] = [];
 
@@ -428,6 +468,10 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
 
     if (anorbankRates.status === 'fulfilled') {
       allRates.push(...anorbankRates.value);
+    }
+
+    if (nbuRates.status === 'fulfilled') {
+      allRates.push(...nbuRates.value);
     }
 
     console.log(`Successfully fetched ${allRates.length} rates from all banks`);

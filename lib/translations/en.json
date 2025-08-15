@@ -12,7 +12,7 @@
   },
   "header": {
     "title": "🏦 Exchange Rates",
-    "subtitle": "Live exchange rates from Hamkorbank, Universal Bank, Tenge Bank & Anorbank",
+    "subtitle": "Live exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank & NBU",
     "telegramMiniApp": "Telegram Mini App",
     "web": "Web",
     "greeting": "Hi, {name}!"
@@ -46,7 +46,8 @@
     "hamkorbank": "Hamkorbank",
     "universalBank": "Universal Bank",
     "tengeBank": "Tenge Bank",
-    "anorbank": "Anorbank"
+    "anorbank": "Anorbank",
+    "nbu": "NBU"
   },
   "currencies": {
     "usd": "USD",
