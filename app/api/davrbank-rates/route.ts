@@ -60,12 +60,12 @@ export async function GET() {
 
       // Check if this is one of our target currencies
       if (currencyMap[currencyCode as keyof typeof currencyMap]) {
-        // Parse the rates (remove spaces and convert to number)
+        // Parse the rates (remove spaces and commas, then convert to number)
         const sellRate = parseFloat(
-          sellText.replace(/\s/g, '').replace(',', '.')
+          sellText.replace(/\s/g, '').replace(/,/g, '')
         );
         const buyRate = parseFloat(
-          buyText.replace(/\s/g, '').replace(',', '.')
+          buyText.replace(/\s/g, '').replace(/,/g, '')
         );
 
         console.log(
