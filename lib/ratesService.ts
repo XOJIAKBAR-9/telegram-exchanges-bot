@@ -430,26 +430,62 @@ async function fetchNbuRates(): Promise<ExchangeRate[]> {
 }
 
 /**
- * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, and NBU
+ * Fetches exchange rates from Davr Bank via API route
+ * API: /api/davrbank-rates
+ * Uses: Server-side scraping with regex parsing (handled by the API route)
+ */
+async function fetchDavrBankRates(): Promise<ExchangeRate[]> {
+  try {
+    const response = await fetch('/api/davrbank-rates', {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Davr Bank API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.success && data.rates) {
+      console.log(`Davr Bank rates fetched: ${data.rates.length}`);
+      return data.rates;
+    } else {
+      console.log('Davr Bank API returned fallback values');
+      return data.rates || [];
+    }
+  } catch (error) {
+    console.error('Error fetching Davr Bank rates:', error);
+
+    // Return empty array if API fails (will show '-' in UI)
+    return [];
+  }
+}
+
+/**
+ * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, NBU, and Davr Bank
  * Returns a merged array of ExchangeRate objects
  */
 export async function fetchAllRates(): Promise<ExchangeRate[]> {
   try {
     console.log('Fetching exchange rates from all banks...');
 
-    // Fetch from all five banks in parallel
+    // Fetch from all six banks in parallel
     const [
       hamkorbankRates,
       universalBankRates,
       tengeBankRates,
       anorbankRates,
       nbuRates,
+      davrBankRates,
     ] = await Promise.allSettled([
       fetchHamkorbankRates(),
       fetchUniversalBankRates(),
       fetchTengeBankRates(),
       fetchAnorbankRates(),
       fetchNbuRates(),
+      fetchDavrBankRates(),
     ]);
 
     const allRates: ExchangeRate[] = [];
@@ -472,6 +508,10 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
 
     if (nbuRates.status === 'fulfilled') {
       allRates.push(...nbuRates.value);
+    }
+
+    if (davrBankRates.status === 'fulfilled') {
+      allRates.push(...davrBankRates.value);
     }
 
     console.log(`Successfully fetched ${allRates.length} rates from all banks`);

@@ -55,6 +55,7 @@ export function ExchangeRatesTable({
     'Tenge Bank',
     'Anorbank',
     'NBU',
+    'Davr Bank',
   ];
 
   const formatRate = (rate: number) => {
@@ -76,6 +77,8 @@ export function ExchangeRatesTable({
         return '🏢';
       case 'NBU':
         return '🏛️';
+      case 'Davr Bank':
+        return '🏦';
       default:
         return '🏦';
     }
