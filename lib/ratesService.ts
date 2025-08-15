@@ -497,34 +497,29 @@ async function fetchInfinBankRates(): Promise<ExchangeRate[]> {
   }
 }
 
-/**
- * Fetches exchange rates from AgroBank via API route
- * API: /api/agrobank-rates
- * Uses: Server-side scraping with regex parsing (handled by the API route)
- */
-async function fetchAgroBankRates(): Promise<ExchangeRate[]> {
+async function fetchKdbBankRates(): Promise<ExchangeRate[]> {
   try {
-    const response = await fetch('/api/agrobank-rates', {
+    const response = await fetch('/api/kdbbank-rates', {
       headers: {
         Accept: 'application/json',
       },
     });
 
     if (!response.ok) {
-      throw new Error(`AgroBank API error: ${response.status}`);
+      throw new Error(`KDB Bank API error: ${response.status}`);
     }
 
     const data = await response.json();
 
     if (data.success && data.rates) {
-      console.log(`AgroBank rates fetched: ${data.rates.length}`);
+      console.log(`KDB Bank rates fetched: ${data.rates.length}`);
       return data.rates;
     } else {
-      console.log('AgroBank API returned fallback values');
+      console.log('KDB Bank API returned fallback values');
       return data.rates || [];
     }
   } catch (error) {
-    console.error('Error fetching AgroBank rates:', error);
+    console.error('Error fetching KDB Bank rates:', error);
 
     // Return empty array if API fails (will show '-' in UI)
     return [];
@@ -532,14 +527,12 @@ async function fetchAgroBankRates(): Promise<ExchangeRate[]> {
 }
 
 /**
- * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, NBU, Davr Bank, InfinBank, and AgroBank
+ * Fetches exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, NBU, Davr Bank, InfinBank, and KDB Bank
  * Returns a merged array of ExchangeRate objects
  */
 export async function fetchAllRates(): Promise<ExchangeRate[]> {
   try {
     console.log('Fetching exchange rates from all banks...');
-
-    // Fetch from all eight banks in parallel
     const [
       hamkorbankRates,
       universalBankRates,
@@ -548,7 +541,7 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
       nbuRates,
       davrBankRates,
       infinBankRates,
-      agroBankRates,
+      kdbBankRates, // Added KDB Bank
     ] = await Promise.allSettled([
       fetchHamkorbankRates(),
       fetchUniversalBankRates(),
@@ -557,7 +550,7 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
       fetchNbuRates(),
       fetchDavrBankRates(),
       fetchInfinBankRates(),
-      fetchAgroBankRates(),
+      fetchKdbBankRates(), // Added KDB Bank
     ]);
 
     const allRates: ExchangeRate[] = [];
@@ -565,33 +558,27 @@ export async function fetchAllRates(): Promise<ExchangeRate[]> {
     if (hamkorbankRates.status === 'fulfilled') {
       allRates.push(...hamkorbankRates.value);
     }
-
     if (universalBankRates.status === 'fulfilled') {
       allRates.push(...universalBankRates.value);
     }
-
     if (tengeBankRates.status === 'fulfilled') {
       allRates.push(...tengeBankRates.value);
     }
-
     if (anorbankRates.status === 'fulfilled') {
       allRates.push(...anorbankRates.value);
     }
-
     if (nbuRates.status === 'fulfilled') {
       allRates.push(...nbuRates.value);
     }
-
     if (davrBankRates.status === 'fulfilled') {
       allRates.push(...davrBankRates.value);
     }
-
     if (infinBankRates.status === 'fulfilled') {
       allRates.push(...infinBankRates.value);
     }
-
-    if (agroBankRates.status === 'fulfilled') {
-      allRates.push(...agroBankRates.value);
+    if (kdbBankRates.status === 'fulfilled') {
+      // Added KDB Bank results
+      allRates.push(...kdbBankRates.value);
     }
 
     console.log(`Successfully fetched ${allRates.length} rates from all banks`);

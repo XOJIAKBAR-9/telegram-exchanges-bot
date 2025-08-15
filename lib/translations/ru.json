@@ -12,7 +12,7 @@
   },
   "header": {
     "title": "🏦 Курсы валют",
-    "subtitle": "Живые курсы валют от Hamkorbank, Universal Bank, Tenge Bank, Anorbank, NBU, Davr Bank, InfinBank и AgroBank",
+    "subtitle": "Live exchange rates from Hamkorbank, Universal Bank, Tenge Bank, Anorbank, NBU, Davr Bank, InfinBank & KDB Bank",
     "telegramMiniApp": "Telegram Mini App",
     "web": "Веб-сайт",
     "greeting": "Привет, {name}!"
@@ -50,7 +50,7 @@
     "nbu": "NBU",
     "davrBank": "Davr Bank",
     "infinBank": "InfinBank",
-    "agroBank": "AgroBank"
+    "kdbBank": "KDB Bank"
   },
   "currencies": {
     "usd": "USD",

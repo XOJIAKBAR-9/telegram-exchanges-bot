@@ -57,7 +57,7 @@ export function ExchangeRatesTable({
     'NBU',
     'Davr Bank',
     'InfinBank',
-    'AgroBank',
+    'KDB Bank', // Added KDB Bank
   ];
 
   const formatRate = (rate: number) => {
@@ -83,8 +83,8 @@ export function ExchangeRatesTable({
         return '🏦';
       case 'InfinBank':
         return '🏛️';
-      case 'AgroBank':
-        return '🌾';
+      case 'KDB Bank': // KDB Bank icon
+        return '🏦';
       default:
         return '🏦';
     }
